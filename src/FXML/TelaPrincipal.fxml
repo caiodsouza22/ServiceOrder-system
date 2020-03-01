@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="559.0" prefWidth="798.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="559.0" prefWidth="798.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.TelaPrincipal">
    <children>
       <ImageView fitHeight="532.0" fitWidth="805.0" layoutY="27.0">
          <image>
@@ -21,23 +19,23 @@
           <Menu mnemonicParsing="false" text="Cadastro">
             <items>
               <MenuItem mnemonicParsing="false" text="Clientes" />
-                  <MenuItem mnemonicParsing="false" text="Usuários" />
                   <MenuItem mnemonicParsing="false" text="OS" />
+                  <MenuItem mnemonicParsing="false" text="Usuários" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Relatórios">
+          <Menu mnemonicParsing="false" text="Relatório">
             <items>
-              <MenuItem mnemonicParsing="false" text="Relatórios" />
+              <MenuItem mnemonicParsing="false" text="Serviços" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ajuda">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="sobre" mnemonicParsing="false" onAction="#sobreAction" text="Sobre" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Opções">
               <items>
-                <MenuItem mnemonicParsing="false" text="Sair" />
+                <MenuItem fx:id="sair" mnemonicParsing="false" onAction="#sairAction" text="Sair" />
               </items>
             </Menu>
         </menus>
@@ -47,15 +45,5 @@
             <Image url="@../../../../Downloads/copyright.png" />
          </image>
       </ImageView>
-      <Label layoutX="607.0" layoutY="36.0" prefHeight="134.0" prefWidth="141.0" text="Usuário" textFill="WHITE">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <Label layoutX="607.0" layoutY="128.0" prefHeight="134.0" prefWidth="141.0" text="Data" textFill="WHITE">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>

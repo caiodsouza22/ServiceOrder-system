@@ -2,25 +2,22 @@ package application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	
-	private static Scene mainScene;
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/TelaLogin.fxml"));
-			AnchorPane anchorPane = loader.load();
-			
-			mainScene = new Scene(anchorPane);
-			primaryStage.setScene(mainScene);
-			primaryStage.setTitle("Sample JavaFX application");
+			Parent root = FXMLLoader.load(getClass().getResource("/FXML/TelaLogin.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
 			primaryStage.show();
-			
+			primaryStage.setResizable(false);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

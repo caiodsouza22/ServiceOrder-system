@@ -7,23 +7,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="559.0" prefWidth="798.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.TelaPrincipal">
+<AnchorPane prefHeight="558.0" prefWidth="808.0" style="-fx-background-color: #2D3447;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.TelaPrincipal">
    <children>
-      <ImageView fitHeight="532.0" fitWidth="805.0" layoutY="27.0">
-         <image>
-            <Image url="@../../../../AppData/Local/Temp/Rar$DRa8980.7484/O55GQY0.jpg" />
-         </image>
-      </ImageView>
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="805.0">
+      <MenuBar layoutX="2.0" layoutY="2.0" prefHeight="25.0" prefWidth="805.0">
         <menus>
           <Menu mnemonicParsing="false" text="Cadastro">
             <items>
               <MenuItem mnemonicParsing="false" text="Clientes" />
                   <MenuItem mnemonicParsing="false" text="OS" />
-                  <MenuItem mnemonicParsing="false" text="Usuários" />
+                  <MenuItem fx:id="usuarios" mnemonicParsing="false" onAction="#usuariosAction" text="Usuários" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Relatório">
+          <Menu fx:id="relatorio" mnemonicParsing="false" text="Relatório">
             <items>
               <MenuItem mnemonicParsing="false" text="Serviços" />
             </items>

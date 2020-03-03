@@ -2,13 +2,9 @@ package FXML;
 
 import java.net.URL;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import javax.swing.JOptionPane;
-
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
@@ -20,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 
 public class TelaUsuarios implements Initializable {
 
@@ -28,19 +25,19 @@ public class TelaUsuarios implements Initializable {
 	ResultSet rs = null;
 
 	@FXML
-	private JFXTextField id;
+	private TextField id;
 
 	@FXML
-	private JFXTextField login;
+	private TextField login;
 
 	@FXML
-	private JFXTextField senha;
+	private TextField senha;
 
 	@FXML
-	private JFXTextField telefone;
+	private TextField telefone;
 
 	@FXML
-	private JFXTextField nome;
+	private TextField nome;
 
 	@FXML
 	private Button adicionar;

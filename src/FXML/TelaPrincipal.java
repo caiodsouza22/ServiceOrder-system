@@ -4,10 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXComboBox;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +31,8 @@ public class TelaPrincipal implements Initializable {
 	@FXML
 	private Menu relatorio;
 	
+	@FXML
+	private MenuItem clientes;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -76,7 +74,16 @@ public class TelaPrincipal implements Initializable {
   
 	}
 	
-
+	@FXML
+	private void clientesAction(ActionEvent evt3) throws IOException {
+        Stage principal = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/FXML/TelaClientes.fxml"));
+        Scene scene = new Scene(root);
+        principal.setScene(scene);
+        principal.show();
+        principal.setResizable(false);
+  
+	}
 	
 	
 

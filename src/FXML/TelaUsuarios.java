@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 
 public class TelaUsuarios implements Initializable {
 
@@ -121,7 +122,7 @@ public class TelaUsuarios implements Initializable {
 			pst.setString(5, senha.getText());
 			pst.setString(6, comboValor.getValue().toString());
             if ((id.getText().isEmpty()) ||(nome.getText().isEmpty()) || (login.getText().isEmpty()) || (senha.getText().isEmpty()) ) {
-            	Alert alert = new Alert(AlertType.ERROR , "Preencha todos os campos!");
+            	Alert alert = new Alert(AlertType.ERROR , "Preencha todos os campos obrigatórios!");
 				alert.showAndWait();
             }else {
             
@@ -158,7 +159,7 @@ public class TelaUsuarios implements Initializable {
 			pst.setString(5, comboValor.getValue().toString());
 			pst.setString(6, id.getText());
 			if ((id.getText().isEmpty()) ||(nome.getText().isEmpty()) || (login.getText().isEmpty()) || (senha.getText().isEmpty()) ) {
-            	Alert alert = new Alert(AlertType.ERROR , "Preencha todos os campos!");
+            	Alert alert = new Alert(AlertType.ERROR , "Preencha todos os campos obrigatórios!");
 				alert.showAndWait();
             }else {
 				int adicionado = pst.executeUpdate();
@@ -172,10 +173,38 @@ public class TelaUsuarios implements Initializable {
 					login.setText(null);
 					senha.setText(null);
 				}
-			
+            }
 		} catch (Exception e) {
 
 		}
+		
+	}
+	
+	@FXML
+	private void deletarAction(ActionEvent evt5) {
+		Alert alert = new Alert(AlertType.CONFIRMATION , "Tem certeza que deseja remover este usuário? ", ButtonType.YES, ButtonType.NO,
+				ButtonType.CANCEL);
+		alert.showAndWait();
+		if (alert.getResult() == ButtonType.YES) {
+			String sql="DELETE FROM tbusuarios WHERE iduser=?";
+					try {
+						pst=(PreparedStatement) conexao.prepareStatement(sql);
+						pst.setString(1, id.getText());
+						int apagado = pst.executeUpdate();
+						if(apagado>0) {
+							Alert alert2 = new Alert(AlertType.INFORMATION , "Usuário apagado com sucesso!");
+							alert2.showAndWait();
+							id.setText(null);
+							nome.setText(null);
+							telefone.setText(null);
+							login.setText(null);
+							senha.setText(null);
+						}
+					}catch (Exception e) {
+						
+					}
+		}
+		
 	}
 
 }

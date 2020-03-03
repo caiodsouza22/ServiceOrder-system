@@ -72,6 +72,7 @@ public class TelaLoginController implements Initializable {
 			 Scene scene = new Scene(root);
 			 principal.setScene(scene);
 			 principal.show();
+		
 			 
 		 }else {
 			 System.out.println("usuário / ou senha inválidos");

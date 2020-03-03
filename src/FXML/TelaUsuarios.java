@@ -2,7 +2,10 @@ package FXML;
 
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -51,7 +54,7 @@ public class TelaUsuarios implements Initializable {
 	private Button procurar;
 
 	@FXML
-	private JFXComboBox<String> Combovalor;
+	private JFXComboBox<String> comboValor;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -60,45 +63,82 @@ public class TelaUsuarios implements Initializable {
 		login.setStyle("-fx-text-inner-color: #a0a2ab;");
 		telefone.setStyle("-fx-text-inner-color: #a0a2ab;");
 		nome.setStyle("-fx-text-inner-color: #a0a2ab;");
-		Combovalor.setStyle("-fx-text-inner-color: #a0a2ab;");
-		Combovalor.getItems().setAll("admin", "user");
-	}
-
+		comboValor.setStyle("-fx-text-inner-color: #a0a2ab;");
+		comboValor.getItems().addAll("admin","user");
+		
+				
+					
+   }
+	
 	public TelaUsuarios() {
-		adicionarAction(null);
+		adicionarAction();
 		conexao = (Connection) ModuloConexao.conector();
 
 	}
 
-	@FXML
-	private void adicionarAction(ActionEvent evt) {
-
-	}
+			
+			
+	
 
 	@FXML
 	private void consultarAction(ActionEvent evt2) {
+		
 		String sql = "select * from tbusuarios where iduser=?";
 		try {
+			
 			pst = (PreparedStatement) conexao.prepareStatement(sql);
 			pst.setString(1, id.getText());
 			rs = pst.executeQuery();
+		  
+		       
 			if (rs.next()) {
-
+               
 				nome.setText(rs.getString(2));
 				telefone.setText(rs.getString(3));
 				login.setText(rs.getString(4));
 				senha.setText(rs.getString(5));
-				Combovalor.getSelectionModel().select(rs.getString(6));
-
+				comboValor.getSelectionModel().select(rs.getString(6));
+				comboValor.getItems().addAll(rs.getString(6));
 			} else {
-				Alert alert = new Alert(AlertType.ERROR, "Usuário nao encontrado ! ");
+				Alert alert = new Alert(AlertType.ERROR, "Usuário não cadastrado !");
 				alert.showAndWait();
 				nome.setText(null);
 				telefone.setText(null);
 				login.setText(null);
 				senha.setText(null);
-				Combovalor.getSelectionModel().select(null);
+				comboValor.getSelectionModel().select(null);
 			}
+		} catch (Exception e) {
+
+		}
+
+	}
+
+	@FXML
+	private void adicionarAction() {
+		
+		String sql = "INSERT INTO tbusuarios (iduser,usuario,fone,login,senha,perfil) VALUES (?,?,?,?,?,?)";
+
+		try {
+			pst = (PreparedStatement) conexao.prepareStatement(sql);
+			pst.setString(1, id.getText());
+			pst.setString(2, nome.getText());
+			pst.setString(3, telefone.getText());
+			pst.setString(4, login.getText());
+			pst.setString(5, senha.getText());
+			pst.setString(6, comboValor.getValue().toString());
+			
+			int adicionado = pst.executeUpdate();
+			
+			if (adicionado > 0) {
+                System.out.println("Usuario adicionado com sucesso");
+                id.setText(null);
+                nome.setText(null);
+                telefone.setText(null);
+                login.setText(null);
+                senha.setText(null);
+			}
+
 		} catch (Exception e) {
 
 		}

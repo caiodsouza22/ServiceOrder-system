@@ -73,7 +73,7 @@ public class TelaPrincipal implements Initializable {
         principal.setScene(scene);
         principal.show();
         principal.setResizable(false);
-		
+  
 	}
 	
 

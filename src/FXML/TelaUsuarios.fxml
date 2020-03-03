@@ -62,13 +62,13 @@
                   <Image url="@../../../../Downloads/login(3).png" />
                </image>
             </ImageView>
-            <JFXComboBox fx:id="Combovalor" editable="true" layoutX="100.0" layoutY="363.0" prefHeight="25.0" prefWidth="151.0" promptText="PERFIL" />
-            <ImageView fitHeight="46.0" fitWidth="47.0" layoutX="35.0" layoutY="349.0">
+            <JFXComboBox fx:id="comboValor" editable="true" layoutX="100.0" layoutY="363.0" prefHeight="25.0" prefWidth="151.0" promptText="PERFIL" />
+            <ImageView fitHeight="46.0" fitWidth="47.0" layoutX="42.0" layoutY="353.0">
                <image>
                   <Image url="@../../../../Downloads/role.png" />
                </image>
             </ImageView>
-            <Button layoutX="75.0" layoutY="432.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="47.0">
+            <Button fx:id="adicionar" layoutX="75.0" layoutY="432.0" mnemonicParsing="false" onAction="#adicionarAction" prefHeight="39.0" prefWidth="47.0">
                <graphic>
                   <ImageView>
                      <image>

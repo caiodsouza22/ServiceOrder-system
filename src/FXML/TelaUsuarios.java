@@ -64,35 +64,28 @@ public class TelaUsuarios implements Initializable {
 		telefone.setStyle("-fx-text-inner-color: #a0a2ab;");
 		nome.setStyle("-fx-text-inner-color: #a0a2ab;");
 		comboValor.setStyle("-fx-text-inner-color: #a0a2ab;");
-		comboValor.getItems().addAll("admin","user");
-		
-				
-					
-   }
-	
+		comboValor.getItems().addAll("admin", "user");
+
+	}
+
 	public TelaUsuarios() {
 		adicionarAction();
 		conexao = (Connection) ModuloConexao.conector();
 
 	}
 
-			
-			
-	
-
 	@FXML
 	private void consultarAction(ActionEvent evt2) {
-		
+
 		String sql = "select * from tbusuarios where iduser=?";
 		try {
-			
+
 			pst = (PreparedStatement) conexao.prepareStatement(sql);
 			pst.setString(1, id.getText());
 			rs = pst.executeQuery();
-		  
-		       
+
 			if (rs.next()) {
-               
+
 				nome.setText(rs.getString(2));
 				telefone.setText(rs.getString(3));
 				login.setText(rs.getString(4));
@@ -116,7 +109,7 @@ public class TelaUsuarios implements Initializable {
 
 	@FXML
 	private void adicionarAction() {
-		
+
 		String sql = "INSERT INTO tbusuarios (iduser,usuario,fone,login,senha,perfil) VALUES (?,?,?,?,?,?)";
 
 		try {
@@ -127,18 +120,59 @@ public class TelaUsuarios implements Initializable {
 			pst.setString(4, login.getText());
 			pst.setString(5, senha.getText());
 			pst.setString(6, comboValor.getValue().toString());
+            if ((id.getText().isEmpty()) ||(nome.getText().isEmpty()) || (login.getText().isEmpty()) || (senha.getText().isEmpty()) ) {
+            	Alert alert = new Alert(AlertType.ERROR , "Preencha todos os campos!");
+				alert.showAndWait();
+            }else {
+            
 			
 			int adicionado = pst.executeUpdate();
-			
-			if (adicionado > 0) {
-                System.out.println("Usuario adicionado com sucesso");
-                id.setText(null);
-                nome.setText(null);
-                telefone.setText(null);
-                login.setText(null);
-                senha.setText(null);
-			}
 
+				if (adicionado > 0) {
+					Alert alert = new Alert(AlertType.INFORMATION , "Usuario adicionado com sucesso");
+					alert.showAndWait();
+					id.setText(null);
+					nome.setText(null);
+					telefone.setText(null);
+					login.setText(null);
+					senha.setText(null);		
+
+				}
+            
+            }
+		} catch (Exception e) {
+
+		}
+
+	}
+
+	@FXML
+	private void alterarAction(ActionEvent evt4) {
+		String sql = "UPDATE tbusuarios SET usuario=?,fone=?,login=?,senha=?,perfil=? where iduser=?";
+		try {
+			pst = (PreparedStatement) conexao.prepareStatement(sql);
+			pst.setString(1, nome.getText());
+			pst.setString(2, telefone.getText());
+			pst.setString(3, login.getText());
+			pst.setString(4, senha.getText());
+			pst.setString(5, comboValor.getValue().toString());
+			pst.setString(6, id.getText());
+			if ((id.getText().isEmpty()) ||(nome.getText().isEmpty()) || (login.getText().isEmpty()) || (senha.getText().isEmpty()) ) {
+            	Alert alert = new Alert(AlertType.ERROR , "Preencha todos os campos!");
+				alert.showAndWait();
+            }else {
+				int adicionado = pst.executeUpdate();
+
+				if (adicionado > 0) {
+					Alert alert = new Alert(AlertType.INFORMATION , "Dados do usuário alterados com sucesso!");
+					alert.showAndWait();
+					id.setText(null);
+					nome.setText(null);
+					telefone.setText(null);
+					login.setText(null);
+					senha.setText(null);
+				}
+			
 		} catch (Exception e) {
 
 		}

@@ -86,7 +86,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button layoutX="305.0" layoutY="432.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="74.0">
+            <Button fx:id="alterar" layoutX="305.0" layoutY="432.0" mnemonicParsing="false" onAction="#alterarAction" prefHeight="72.0" prefWidth="74.0">
                <graphic>
                   <ImageView>
                      <image>

@@ -119,7 +119,7 @@ public class TelaUsuarios implements Initializable {
 			pst.setString(5, senha.getText());
 			pst.setString(6, comboValor.getValue().toString());
             if ((id.getText().isEmpty()) ||(nome.getText().isEmpty()) || (login.getText().isEmpty()) || (senha.getText().isEmpty()) ) {
-            	Alert alert = new Alert(AlertType.ERROR , "Preencha todos os campos obrigatórios!");
+            	Alert alert = new Alert(AlertType.INFORMATION , "Preencha todos os campos obrigatórios!");
 				alert.showAndWait();
             }else {
             
@@ -205,3 +205,5 @@ public class TelaUsuarios implements Initializable {
 	}
 
 }
+
+

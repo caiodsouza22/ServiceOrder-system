@@ -20,7 +20,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="335.0" layoutY="424.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="71.0">
+      <Button fx:id="deletar" layoutX="335.0" layoutY="424.0" mnemonicParsing="false" onAction="#deletarAction" prefHeight="82.0" prefWidth="71.0">
          <graphic>
             <ImageView>
                <image>

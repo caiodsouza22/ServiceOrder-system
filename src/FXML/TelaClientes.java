@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
 public class TelaClientes implements Initializable {
@@ -57,7 +58,7 @@ public class TelaClientes implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
         
-		
+		add.setDisable(false);
 	}
 
 	public TelaClientes() {
@@ -162,11 +163,38 @@ public class TelaClientes implements Initializable {
 					nome.setText(null);
 					telefone.setText(null);
 					email.setText(null);
-					
+					add.setDisable(false);
 				}
             }
 		} catch (Exception e) {
 
+		}
+		
+	}
+	@FXML
+	private void deletarAction(ActionEvent evt5) {
+		Alert alert = new Alert(AlertType.CONFIRMATION , "Tem certeza que deseja remover este usuário? ", ButtonType.YES, ButtonType.NO,
+				ButtonType.CANCEL);
+		alert.showAndWait();
+		if (alert.getResult() == ButtonType.YES) {
+			String sql="DELETE FROM tbclientes WHERE idcli=?";
+					try {
+						pst=(PreparedStatement) conexao.prepareStatement(sql);
+						pst.setString(1, idcli.getText());
+						int apagado = pst.executeUpdate();
+						if(apagado>0) {
+							Alert alert2 = new Alert(AlertType.INFORMATION , "Usuário apagado com sucesso!");
+							alert2.showAndWait();
+							idcli.setText(null);
+							nome.setText(null);
+							telefone.setText(null);
+							email.setText(null);
+							endereco.setText(null);
+							
+						}
+					}catch (Exception e) {
+						
+					}
 		}
 		
 	}

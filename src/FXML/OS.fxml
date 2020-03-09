@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="532.0" prefWidth="543.0" style="-fx-background-color: #2D3447;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.OSController">
+<AnchorPane prefHeight="537.0" prefWidth="642.0" style="-fx-background-color: #2D3447;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.OSController">
    <children>
       <Label layoutX="40.0" layoutY="28.0" text="Nº OS" textFill="WHITE">
          <font>
@@ -22,8 +29,11 @@
       </Label>
       <TextField fx:id="numero" layoutX="37.0" layoutY="56.0" prefHeight="25.0" prefWidth="45.0" />
       <TextField fx:id="data1" layoutX="132.0" layoutY="56.0" prefHeight="25.0" prefWidth="87.0" />
-      <JFXRadioButton fx:id="orC" layoutX="23.0" layoutY="109.0" text="Orçamento" textFill="WHITE" />
-      <JFXRadioButton fx:id="odS" layoutX="132.0" layoutY="109.0" text="Ordem de Serviço" textFill="WHITE" />
+      <JFXRadioButton fx:id="orC" layoutX="23.0" layoutY="109.0" selected="true" text="Orçamento" textFill="WHITE">
+         <toggleGroup>
+            <ToggleGroup fx:id="escolhas" />
+         </toggleGroup></JFXRadioButton>
+      <JFXRadioButton fx:id="odS" layoutX="132.0" layoutY="109.0" text="Ordem de Serviço" textFill="WHITE" toggleGroup="$escolhas" />
       <Line endX="195.0" layoutX="115.0" layoutY="154.0" startX="-100.0" stroke="WHITE" />
       <Line endX="195.0" layoutX="116.0" layoutY="14.0" startX="-100.0" stroke="WHITE" />
       <Line endX="-100.5" endY="-139.5" layoutX="116.0" layoutY="153.0" startX="-100.0" stroke="WHITE" />
@@ -34,5 +44,112 @@
          </font>
       </Label>
       <ComboBox fx:id="situacao" layoutX="101.0" layoutY="184.0" prefWidth="150.0" />
+      <TableView layoutX="332.0" layoutY="91.0" prefHeight="93.0" prefWidth="296.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Id" />
+          <TableColumn prefWidth="108.0" text="Nome" />
+            <TableColumn prefWidth="112.0" text="Fone" />
+        </columns>
+      </TableView>
+      <Label layoutX="332.0" layoutY="18.0" text="Cliente" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="541.0" layoutY="46.0" text="*Id" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="332.0" layoutY="44.0" />
+      <TextField layoutX="566.0" layoutY="44.0" prefHeight="10.0" prefWidth="55.0" />
+      <JFXButton ellipsisString="" layoutX="479.0" layoutY="35.0" prefHeight="33.0" prefWidth="39.0">
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="31.0">
+               <image>
+                  <Image url="@../../../../Downloads/search.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <Line endX="214.5" endY="0.5" layoutX="422.0" layoutY="18.0" startX="-100.0" stroke="WHITE" />
+      <Line endX="195.0" layoutX="128.0" layoutY="18.0" startX="195.0" startY="183.0" stroke="WHITE" />
+      <Line endX="214.0" layoutX="422.0" layoutY="201.0" startX="-100.0" stroke="WHITE" />
+      <Line endX="207.0" endY="1.0" layoutX="429.0" layoutY="18.0" startX="207.0" startY="182.0" stroke="WHITE" />
+      <TextField layoutX="111.0" layoutY="254.0" prefHeight="25.0" prefWidth="497.0" />
+      <TextField layoutX="456.0" layoutY="395.0" />
+      <TextField layoutX="110.0" layoutY="294.0" prefHeight="25.0" prefWidth="497.0" />
+      <TextField layoutX="111.0" layoutY="334.0" prefHeight="25.0" prefWidth="497.0" />
+      <TextField layoutX="111.0" layoutY="395.0" prefHeight="25.0" prefWidth="215.0" />
+      <Label layoutX="18.0" layoutY="256.0" prefHeight="20.0" prefWidth="94.0" text="*Equipamento" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="53.0" layoutY="297.0" text="*Defeito" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="57.0" layoutY="337.0" text="Serviço" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="55.0" layoutY="397.0" text="Técnico" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="382.0" layoutY="397.0" text="Valor Total" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="adicionar" layoutX="65.0" layoutY="442.0" mnemonicParsing="false" onAction="#adicionarAction" prefHeight="39.0" prefWidth="47.0">
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@../../../prjInfoX/src/br/com/infox/icones/create.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="procurar" layoutX="176.0" layoutY="442.0" mnemonicParsing="false" onAction="#consultarAction" prefHeight="70.0" prefWidth="75.0">
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@../../../prjInfoX/src/br/com/infox/icones/read.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="alterar" layoutX="286.0" layoutY="442.0" mnemonicParsing="false" onAction="#alterarAction" prefHeight="72.0" prefWidth="74.0">
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@../../../prjInfoX/src/br/com/infox/icones/update.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="deletar" layoutX="393.0" layoutY="442.0" mnemonicParsing="false" onAction="#deletarAction" prefHeight="72.0" prefWidth="74.0">
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@../../../prjInfoX/src/br/com/infox/icones/delete.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="imprimir" layoutX="501.0" layoutY="442.0" mnemonicParsing="false" onAction="#deletarAction" prefHeight="72.0" prefWidth="74.0">
+         <graphic>
+            <ImageView fitHeight="55.0" fitWidth="63.0">
+               <image>
+                  <Image url="@../../../../Downloads/print.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

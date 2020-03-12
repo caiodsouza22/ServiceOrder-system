@@ -38,12 +38,12 @@
       <Line endX="195.0" layoutX="116.0" layoutY="14.0" startX="-100.0" stroke="WHITE" />
       <Line endX="-100.5" endY="-139.5" layoutX="116.0" layoutY="153.0" startX="-100.0" stroke="WHITE" />
       <Line endX="-101.5" endY="-140.5" layoutX="413.0" layoutY="155.0" startX="-102.5" startY="-1.5" stroke="WHITE" />
-      <Label layoutX="23.0" layoutY="186.0" text="Situação 1" textFill="WHITE">
+      <Label layoutX="35.0" layoutY="191.0" text="Situação 1" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="situacao" layoutX="101.0" layoutY="184.0" prefWidth="150.0" />
+      <ComboBox fx:id="situacao" layoutX="111.0" layoutY="188.0" prefWidth="150.0" />
       <TableView fx:id="table" layoutX="332.0" layoutY="91.0" onMouseClicked="#setar_campos" prefHeight="93.0" prefWidth="296.0">
         <columns>
           <TableColumn fx:id="idcli" prefWidth="31.0" text="Id" />
@@ -76,11 +76,11 @@
       <Line endX="195.0" layoutX="128.0" layoutY="18.0" startX="195.0" startY="183.0" stroke="WHITE" />
       <Line endX="214.0" layoutX="422.0" layoutY="201.0" startX="-100.0" stroke="WHITE" />
       <Line endX="207.0" endY="1.0" layoutX="429.0" layoutY="18.0" startX="207.0" startY="182.0" stroke="WHITE" />
-      <TextField layoutX="111.0" layoutY="254.0" prefHeight="25.0" prefWidth="497.0" />
-      <TextField layoutX="456.0" layoutY="395.0" />
-      <TextField layoutX="110.0" layoutY="294.0" prefHeight="25.0" prefWidth="497.0" />
-      <TextField layoutX="111.0" layoutY="334.0" prefHeight="25.0" prefWidth="497.0" />
-      <TextField layoutX="111.0" layoutY="395.0" prefHeight="25.0" prefWidth="215.0" />
+      <TextField fx:id="equipamento" layoutX="111.0" layoutY="254.0" prefHeight="25.0" prefWidth="497.0" />
+      <TextField fx:id="valor" layoutX="456.0" layoutY="395.0" />
+      <TextField fx:id="defeito" layoutX="110.0" layoutY="294.0" prefHeight="25.0" prefWidth="497.0" />
+      <TextField fx:id="servico" layoutX="111.0" layoutY="334.0" prefHeight="25.0" prefWidth="497.0" />
+      <TextField fx:id="tecnico" layoutX="111.0" layoutY="395.0" prefHeight="25.0" prefWidth="215.0" />
       <Label layoutX="18.0" layoutY="256.0" prefHeight="20.0" prefWidth="94.0" text="*Equipamento" textFill="WHITE">
          <font>
             <Font size="14.0" />
@@ -106,7 +106,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="adicionar" layoutX="65.0" layoutY="442.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="47.0">
+      <Button fx:id="adicionar" layoutX="65.0" layoutY="442.0" mnemonicParsing="false" onAction="#emitir_os" prefHeight="39.0" prefWidth="47.0">
          <graphic>
             <ImageView>
                <image>

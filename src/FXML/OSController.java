@@ -4,6 +4,8 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.mysql.jdbc.Connection;
@@ -16,12 +18,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class OSController implements Initializable {
@@ -37,10 +40,16 @@ public class OSController implements Initializable {
 	private JFXRadioButton orC;
 
 	@FXML
+	private ToggleGroup orcaOuServico;
+
+	@FXML
 	private JFXButton procurar;
 
 	@FXML
-	private TextField numero,txtProcurar;
+	private Button pesquisarOS;
+
+	@FXML
+	private TextField numero, txtProcurar;
 
 	@FXML
 	private TextField data1;
@@ -62,9 +71,9 @@ public class OSController implements Initializable {
 
 	@FXML
 	private TextField valor;
-	
+
 	@FXML
-	private ToggleGroup tipo;
+	private String tipo;
 
 	@FXML
 	private ComboBox<String> situacao;
@@ -82,6 +91,8 @@ public class OSController implements Initializable {
 	private TableColumn<TableModel2, String> fonecli;
 
 	ObservableList<TableModel2> listview = FXCollections.observableArrayList();
+
+	private Object label;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -111,7 +122,8 @@ public class OSController implements Initializable {
 
 	public OSController() {
 		conexao = (Connection) ModuloConexao.conector();
-
+		emitir_os();
+		
 	}
 
 	@FXML
@@ -119,56 +131,86 @@ public class OSController implements Initializable {
 		id.setText(table.getSelectionModel().getSelectedItem().getIdcli());
 	}
 
-	public String getTipo() {
-		String esc = "";
-
-		if (orC.isSelected()) {
-			esc = "Orçamento";
-		} else if (odS.isSelected()) {
-			esc = "Ordem de Serviço";
-		}
-		return esc;
-
-	}
-
 	@FXML
-	private void emitir_os(ActionEvent evt1) {
-		
+	private void emitir_os() {
+
 		String sql = "insert into tbos(tipo,situacao,equipamento,defeito,servico,tecnico,valor,idcli) values(?,?,?,?,?,?,?,?)";
-		
+
 		try {
 			pst = (PreparedStatement) conexao.prepareStatement(sql);
 			pst.setString(1, getTipo());
-			pst.setString(2, situacao.getSelectionModel().getSelectedItem().toString());
+			pst.setString(2, situacao.getValue().toString());
 			pst.setString(3, equipamento.getText());
 			pst.setString(4, defeito.getText());
 			pst.setString(5, servico.getText());
 			pst.setString(6, tecnico.getText());
 			pst.setString(7, valor.getText().replace(",", "."));
 			pst.setString(8, id.getText());
-			
-			if ((id.getText().isEmpty()) ||(equipamento.getText().isEmpty()) || (defeito.getText().isEmpty()) ) {
-            	
-				Alert alert = new Alert(AlertType.INFORMATION , "Preencha todos os campos obrigatórios!");
-				
-            	alert.showAndWait();
-				
-			}else {
-				
+
+			if ((id.getText().isEmpty()) || (equipamento.getText().isEmpty()) || (defeito.getText().isEmpty())) {
+
+				Alert alert = new Alert(AlertType.INFORMATION, "Preencha todos os campos obrigatórios!");
+
+				alert.showAndWait();
+
+			} else {
+
 				int adicionado = pst.executeUpdate();
-				
-				if(adicionado > 0) {
-					
-					Alert alert = new Alert(AlertType.INFORMATION , "Ordem de serviço emitida com sucesso!");
+
+				if (adicionado > 0) {
+
+					Alert alert = new Alert(AlertType.INFORMATION, "Ordem de serviço emitida com sucesso!");
 					alert.showAndWait();
 					id.setText(null);
 					equipamento.setText(null);
 					defeito.setText(null);
 					servico.setText(null);
-					tecnico.setText(null);	
+					tecnico.setText(null);
 					valor.setText(null);
 				}
+
+			}
+		} catch (Exception e) {
+
+		}
+	}
+
+	public String getTipo() {
+		String esc = "";
+
+		if (orC.isSelected()) {
+			esc = "Orçamento";
+			
+		} else if (odS.isSelected()) {
+			esc = "OrdemdeServiço";
+		}
+
+		return esc;
+
+	}
+
+	@FXML
+	private void pesquisar_os(ActionEvent evt2) {
+
+		String num_os = JOptionPane.showInputDialog("Número da OS");
+		String sql = "select * from tbos where os= " + num_os;
+		try {
+			pst = (PreparedStatement) conexao.prepareStatement(sql);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				numero.setText(rs.getString(1));
+				data1.setText(rs.getString(2));
+				String rbtTipo = rs.getString(3);
+				if (rbtTipo.equals("OrdemdeServiço")) {
+					odS.setSelected(true);
+					
+				} else {
+					orC.setSelected(true);
 				
+				}
+
+			} else {
+				JOptionPane.showMessageDialog(null, "OS não cadastrada");
 			}
 		} catch (Exception e) {
 

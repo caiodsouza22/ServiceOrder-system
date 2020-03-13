@@ -46,6 +46,12 @@ public class OSController implements Initializable {
 	private JFXButton procurar;
 
 	@FXML
+	private Button alterar;
+	
+	@FXML
+	private Button adicionar;
+
+	@FXML
 	private Button pesquisarOS;
 
 	@FXML
@@ -123,7 +129,7 @@ public class OSController implements Initializable {
 	public OSController() {
 		conexao = (Connection) ModuloConexao.conector();
 		emitir_os();
-		
+
 	}
 
 	@FXML
@@ -180,7 +186,7 @@ public class OSController implements Initializable {
 
 		if (orC.isSelected()) {
 			esc = "Orçamento";
-			
+
 		} else if (odS.isSelected()) {
 			esc = "OrdemdeServiço";
 		}
@@ -194,27 +200,96 @@ public class OSController implements Initializable {
 
 		String num_os = JOptionPane.showInputDialog("Número da OS");
 		String sql = "select * from tbos where os= " + num_os;
+		
 		try {
+			
 			pst = (PreparedStatement) conexao.prepareStatement(sql);
 			rs = pst.executeQuery();
+			
 			if (rs.next()) {
 				numero.setText(rs.getString(1));
 				data1.setText(rs.getString(2));
 				String rbtTipo = rs.getString(3);
-				if (rbtTipo.equals("OrdemdeServiço")) {
+				
+				if (rbtTipo.equals("OrdemdeServiço"))
+				{
 					odS.setSelected(true);
-					
+
 				} else {
 					orC.setSelected(true);
-				
+
 				}
+				situacao.getSelectionModel().select(rs.getString(4));
+				equipamento.setText(rs.getString(5));
+				defeito.setText(rs.getString(6));
+				servico.setText(rs.getString(7));
+				tecnico.setText(rs.getString(8));
+				valor.setText(rs.getString(9));
+				id.setText(rs.getString(10));
+
+				adicionar.setDisable(true);
+				txtProcurar.setDisable(true);
+				table.setDisable(true);
 
 			} else {
 				JOptionPane.showMessageDialog(null, "OS não cadastrada");
 			}
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "OS Inválida");
+			
+		}
+	}
+	@FXML
+	private void alterarAction(ActionEvent evt5) {
+		String sql = "UPDATE tbos SET tipo=?,situacao=?,equipamento=?,defeito=?,servico=?,tecnico=?,valor=? where os=?";
+		
+		try {
+			pst = (PreparedStatement) conexao.prepareStatement(sql);
+			pst.setString(1, getTipo());
+			pst.setString(2, situacao.getValue().toString());
+			pst.setString(3, equipamento.getText());
+			pst.setString(4, defeito.getText());
+			pst.setString(5, servico.getText());
+			pst.setString(6, tecnico.getText());
+			pst.setString(7, valor.getText().replace(",", "."));
+			pst.setString(8, numero.getText());
+
+			if ((id.getText().isEmpty()) || (equipamento.getText().isEmpty()) || (defeito.getText().isEmpty())) {
+
+				Alert alert = new Alert(AlertType.INFORMATION, "Preencha todos os campos obrigatórios!");
+
+				alert.showAndWait();
+
+			} else {
+
+				int adicionado = pst.executeUpdate();
+
+				if (adicionado > 0) {
+
+					Alert alert = new Alert(AlertType.INFORMATION, "OS alterada com sucesso!");
+					alert.showAndWait();
+					
+					numero.setText(null);
+					data1.setText(null);
+					id.setText(null);
+					equipamento.setText(null);
+					defeito.setText(null);
+					servico.setText(null);
+					tecnico.setText(null);
+					valor.setText(null);
+					
+					adicionar.setDisable(false);
+					txtProcurar.setDisable(false);
+					table.setDisable(false);
+					
+				}
+
+			}
+		} catch (Exception e) {
 
 		}
 	}
+
+
 
 }

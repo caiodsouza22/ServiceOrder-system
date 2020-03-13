@@ -89,7 +89,7 @@ public class TelaUsuarios implements Initializable {
 				login.setText(rs.getString(4));
 				senha.setText(rs.getString(5));
 				comboValor.getSelectionModel().select(rs.getString(6));
-				comboValor.getItems().addAll(rs.getString(6));
+		
 			} else {
 				Alert alert = new Alert(AlertType.ERROR, "Usuário não cadastrado !");
 				alert.showAndWait();

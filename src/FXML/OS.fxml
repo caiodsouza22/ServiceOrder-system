@@ -134,7 +134,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="deletar" layoutX="393.0" layoutY="442.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="74.0">
+      <Button fx:id="deletar" layoutX="393.0" layoutY="442.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="72.0" prefWidth="74.0">
          <graphic>
             <ImageView>
                <image>

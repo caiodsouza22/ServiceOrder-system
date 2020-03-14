@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -47,12 +48,15 @@ public class OSController implements Initializable {
 
 	@FXML
 	private Button alterar;
-	
+
 	@FXML
 	private Button adicionar;
 
 	@FXML
 	private Button pesquisarOS;
+
+	@FXML
+	private Button deletar;
 
 	@FXML
 	private TextField numero, txtProcurar;
@@ -200,19 +204,18 @@ public class OSController implements Initializable {
 
 		String num_os = JOptionPane.showInputDialog("Número da OS");
 		String sql = "select * from tbos where os= " + num_os;
-		
+
 		try {
-			
+
 			pst = (PreparedStatement) conexao.prepareStatement(sql);
 			rs = pst.executeQuery();
-			
+
 			if (rs.next()) {
 				numero.setText(rs.getString(1));
 				data1.setText(rs.getString(2));
 				String rbtTipo = rs.getString(3);
-				
-				if (rbtTipo.equals("OrdemdeServiço"))
-				{
+
+				if (rbtTipo.equals("OrdemdeServiço")) {
 					odS.setSelected(true);
 
 				} else {
@@ -236,13 +239,14 @@ public class OSController implements Initializable {
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "OS Inválida");
-			
+
 		}
 	}
+
 	@FXML
 	private void alterarAction(ActionEvent evt5) {
 		String sql = "UPDATE tbos SET tipo=?,situacao=?,equipamento=?,defeito=?,servico=?,tecnico=?,valor=? where os=?";
-		
+
 		try {
 			pst = (PreparedStatement) conexao.prepareStatement(sql);
 			pst.setString(1, getTipo());
@@ -268,7 +272,7 @@ public class OSController implements Initializable {
 
 					Alert alert = new Alert(AlertType.INFORMATION, "OS alterada com sucesso!");
 					alert.showAndWait();
-					
+
 					numero.setText(null);
 					data1.setText(null);
 					id.setText(null);
@@ -277,11 +281,11 @@ public class OSController implements Initializable {
 					servico.setText(null);
 					tecnico.setText(null);
 					valor.setText(null);
-					
+
 					adicionar.setDisable(false);
 					txtProcurar.setDisable(false);
 					table.setDisable(false);
-					
+
 				}
 
 			}
@@ -290,6 +294,43 @@ public class OSController implements Initializable {
 		}
 	}
 
+	@FXML
+	private void deleteAction(ActionEvent evt6) {
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Tem certeza que deseja remover este usuário? ", ButtonType.YES,
+				ButtonType.NO, ButtonType.CANCEL);
+		alert.showAndWait();
+		if (alert.getResult() == ButtonType.YES) {
+			String sql = "delete from tbos where os=?";
 
+			try {
+				pst = (PreparedStatement) conexao.prepareStatement(sql);
+				pst.setString(1, numero.getText());
+
+				int apagado = pst.executeUpdate();
+
+				if (apagado > 0) {
+					Alert alert2 = new Alert(AlertType.INFORMATION, "Usuário apagado com sucesso!");
+					alert2.showAndWait();
+
+					numero.setText(null);
+					data1.setText(null);
+					id.setText(null);
+					equipamento.setText(null);
+					defeito.setText(null);
+					servico.setText(null);
+					tecnico.setText(null);
+					valor.setText(null);
+
+					adicionar.setDisable(false);
+					txtProcurar.setDisable(false);
+					table.setDisable(false);
+				}
+
+			} catch (Exception e) {
+
+			}
+		}
+
+	}
 
 }

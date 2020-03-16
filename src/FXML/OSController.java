@@ -192,7 +192,7 @@ public class OSController implements Initializable {
 			esc = "Orçamento";
 
 		} else if (odS.isSelected()) {
-			esc = "OrdemdeServiço";
+			esc = "OS";
 		}
 
 		return esc;
@@ -215,7 +215,7 @@ public class OSController implements Initializable {
 				data1.setText(rs.getString(2));
 				String rbtTipo = rs.getString(3);
 
-				if (rbtTipo.equals("OrdemdeServiço")) {
+				if (rbtTipo.equals("OS")) {
 					odS.setSelected(true);
 
 				} else {
@@ -296,7 +296,7 @@ public class OSController implements Initializable {
 
 	@FXML
 	private void deleteAction(ActionEvent evt6) {
-		Alert alert = new Alert(AlertType.CONFIRMATION, "Tem certeza que deseja remover este usuário? ", ButtonType.YES,
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Tem certeza que deseja remover esta OS? ", ButtonType.YES,
 				ButtonType.NO, ButtonType.CANCEL);
 		alert.showAndWait();
 		if (alert.getResult() == ButtonType.YES) {

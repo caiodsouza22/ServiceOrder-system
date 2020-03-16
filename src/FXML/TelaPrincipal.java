@@ -52,6 +52,9 @@ public class TelaPrincipal implements Initializable {
 	private MenuItem clientes;
 
 	@FXML
+	private MenuItem servicos;
+	
+	@FXML
 	private AnchorPane rootPane;
 
 	@FXML
@@ -131,6 +134,24 @@ public class TelaPrincipal implements Initializable {
 		if (alert.getResult() == ButtonType.YES) {
 			 try {
 				 JasperPrint print = JasperFillManager.fillReport("C:\\Users\\csm_v\\ws-javafx\\ServiceOrder-system\\clientes.jasper",null,conexao);
+				 
+				 JasperViewer.viewReport(print,false);
+				 
+			 } catch (Exception e) {
+				 
+			 }
+		}
+		
+	}
+	
+	@FXML
+	private void servicoAction(ActionEvent event) throws IOException {
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Confirma a impressão desse relatório? ", ButtonType.YES, ButtonType.NO);
+		alert.showAndWait();
+
+		if (alert.getResult() == ButtonType.YES) {
+			 try {
+				 JasperPrint print = JasperFillManager.fillReport("C:\\Users\\csm_v\\ws-javafx\\ServiceOrder-system\\servicos.jasper",null,conexao);
 				 
 				 JasperViewer.viewReport(print,false);
 				 

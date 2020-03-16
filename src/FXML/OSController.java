@@ -1,7 +1,9 @@
 package FXML;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -27,6 +29,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class OSController implements Initializable {
 
@@ -46,6 +51,9 @@ public class OSController implements Initializable {
 	@FXML
 	private JFXButton procurar;
 
+	@FXML
+    private Button imprimir;
+	
 	@FXML
 	private Button alterar;
 
@@ -331,6 +339,28 @@ public class OSController implements Initializable {
 			}
 		}
 
+	}
+	
+	@FXML
+	private void imprimirosAction(ActionEvent event) throws IOException {
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Confirma a impressão desta OS? ", ButtonType.YES, ButtonType.NO);
+		alert.showAndWait();
+
+		if (alert.getResult() == ButtonType.YES) {
+			 try {
+				 
+				 HashMap filtro = new HashMap();
+				 filtro.put("os", Integer.parseInt(numero.getText()));
+				 
+				 JasperPrint print = JasperFillManager.fillReport("C:\\Users\\csm_v\\ws-javafx\\ServiceOrder-system\\os.jasper",filtro,conexao);
+				 
+				 JasperViewer.viewReport(print,false);
+				 
+			 } catch (Exception e) {
+				 
+			 }
+		}
+		
 	}
 
 }

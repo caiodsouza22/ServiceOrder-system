@@ -143,7 +143,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="imprimir" layoutX="501.0" layoutY="442.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="74.0">
+      <Button fx:id="imprimir" layoutX="501.0" layoutY="442.0" mnemonicParsing="false" onAction="#imprimirosAction" prefHeight="72.0" prefWidth="74.0">
          <graphic>
             <ImageView fitHeight="55.0" fitWidth="63.0">
                <image>
